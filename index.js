@@ -17,9 +17,9 @@ const pool = new Pool({
 app.post('/persona', async (req, res) => {
     const { Nombre, Edad } = req.body;
     try {
-        const result = await pool.query('INSERT INTO PERSONA (Nombre, Edad) VALUES ($1, $2) RETURNING *', [Nombre, Edad]);
+        const result = await pool.query('INSERT INTO PERSONA (Nombre, Edad) VALUES ($1, $2) RETURNING *', [Nombre, Edad + 1]);
         const persona = result.rows[0];
-        const respuesta = `El registro de ${persona.nombre}, próximamente tendrás ${persona.edad + 1} años.`;
+        const respuesta = `El registro de ${persona.nombre}, próximamente tendrás ${persona.edad} años.`;
         res.json({ Respuesta: respuesta });
     } catch (error) {
         console.error('Error al insertar en la base de datos:', error);
